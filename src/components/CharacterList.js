@@ -4,48 +4,39 @@ import axios from "axios"
 import { Link } from "react-router-dom";
 import CharacterCard from "./CharacterCard"
 
-function CharacterList() {
+export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
-  const [charactersData, setCharacters] = useState()
+  const [characters, setCharacters] = useState('');
   useEffect(() => {
     // TODO: Add API Request here - must run in `useEffect`
     //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-
-    axios
-      .get(`https://rickandmortyapi.com/api/character/`)
-      .then(response => {
-        setCharacters(response.data.results);
-        console.log(response)
-
-      })
-      .catch(error => {
-        console.error('Server Error', error);
-      });
-  }, [charactersData]);
-  console.log("character = ", charactersData)
-
-  if (charactersData == []) {
-    return "";
+    axios.get('https://rickandmortyapi.com/api/character')
+    .then (res => {
+      console.log('res', res);
+      setCharacters(res.data.results)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }, []);
+  if ( !characters) {
+    return (
+      <p>Nada</p>
+    )
   } else {
     return (
-      <section className="character-list">
-        {charactersData.map(cv => {
-          return <CharacterCard datapassed={cv} />;
-        })}
-      </section>
-      // <p>somthing</p>
-    );
-  }
-  //   return (
-  //     // <section className="character-list">
-  //     //   {characters.map( character => {
-
-  //     //       <h1>{character.name}</h1>
-
-  //     //   })}
-  //     // </section>
-  //     <p>renders</p>
-  //   );
+    <section className="character-list">
+      <h2>TODO: `array.map()` over your state here!</h2>
+      {characters.map(stuff => {
+        return (
+          <div>
+          <Link to={`characters/${stuff.id}`}>{stuff.name}</Link>
+        <p>{stuff.gender}</p>
+      <p>{stuff.species}</p>
+        </div>
+        )
+      })}
+    </section>
+  );
 }
-
-export default CharacterList
+}
