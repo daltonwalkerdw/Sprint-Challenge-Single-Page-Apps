@@ -4,39 +4,49 @@ import axios from "axios"
 import { Link } from "react-router-dom";
 import CharacterCard from "./CharacterCard"
 
-export default function CharacterList() {
+export default function CharacterList(props) {
   // TODO: Add useState to track data from useEffect
   const [characters, setCharacters] = useState('');
+
+
+
   useEffect(() => {
     // TODO: Add API Request here - must run in `useEffect`
     //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-    axios.get('https://rickandmortyapi.com/api/character')
-    .then (res => {
-      console.log('res', res);
-      setCharacters(res.data.results)
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    axios.get('https://rickandmortyapi.com/api/character/')
+      .then(res => {
+        console.log('res', res);
+        setCharacters(res.data.results)
+
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }, []);
-  if ( !characters) {
+
+
+
+
+  if (!characters) {
     return (
       <p>Nada</p>
     )
   } else {
     return (
-    <section className="character-list">
-      <h2>TODO: `array.map()` over your state here!</h2>
-      {characters.map(stuff => {
-        return (
-          <div>
-          <Link to={`characters/${stuff.id}`}>{stuff.name}</Link>
-        <p>{stuff.gender}</p>
-      <p>{stuff.species}</p>
-        </div>
-        )
-      })}
-    </section>
-  );
-}
+      <section className="character-list">
+        <h2>TODO: `array.map()` over your state here!</h2>
+        {characters.map(stuff => {
+          const characterNameList = stuff.name
+          console.log("character list:", characterNameList)
+          return (
+            <div>
+              <Link key={stuff.name} to={`characters/${stuff.id}`}>{stuff.name}</Link>
+              <p>{stuff.gender}</p>
+              <p>{stuff.species}</p>
+            </div>
+          )
+        })}
+      </section>
+    );
+  }
 }
