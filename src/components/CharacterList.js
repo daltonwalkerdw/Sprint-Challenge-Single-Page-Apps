@@ -4,7 +4,7 @@ import axios from "axios"
 import { Link } from "react-router-dom";
 import CharacterCard from "./CharacterCard"
 
-export default function CharacterList(props) {
+export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [characters, setCharacters] = useState('');
 
@@ -40,7 +40,7 @@ export default function CharacterList(props) {
           console.log("character list:", characterNameList)
           return (
             <div>
-              <Link key={stuff.name} to={`characters/${stuff.id}`}>{stuff.name}</Link>
+              <Link key={stuff} to={`characters/${stuff.id}`}>{stuff.name}</Link>
               <p>{stuff.gender}</p>
               <p>{stuff.species}</p>
             </div>

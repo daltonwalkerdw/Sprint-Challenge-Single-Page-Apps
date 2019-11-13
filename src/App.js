@@ -10,36 +10,8 @@ import SearchForm from "./components/SearchForm"
 
 
 export default function App() {
-
-  const [names, setNames] = setState('');
-
-
-
-  useEffect(() => {
-    // TODO: Add API Request here - must run in `useEffect`
-    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
-    axios.get('https://rickandmortyapi.com/api/character/')
-      .then(res => {
-        console.log('res', res);
-        setNames(res.data.results)
- {names.map(stuff => {
-    let characterNameList = stuff.name
-    console.log("character list:", characterNameList)})}
-
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, []);
-
- 
-
   return (
-
-    
     <main>
-
-      
       <Header />
       <SearchForm />
       <Route exact path="/" 
@@ -47,7 +19,7 @@ export default function App() {
        />
        <Route exact path="/characters"
         
-        render={(props) => <CharacterList {...props} characterNameList={characterNameList} />}
+        render={(props) => <CharacterList {...props} />}
         />
        <Route path="/characters/:id"
        component={CharacterCard}
@@ -56,4 +28,3 @@ export default function App() {
     </main>
   );
 }
-console.log(this.props)
